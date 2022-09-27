@@ -1,7 +1,6 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 local launch_menu = {}
-local default_prog = {}
 local set_environment_variables = {}
 
 -- Show which key table is active in the status area
@@ -13,36 +12,10 @@ wezterm.on('update-right-status', function(window, pane)
   window:set_right_status(name or '')
 end)
 
--- Using shell
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-    local term = '' -- Set to empty so FZF works on windows
-    table.insert(launch_menu, {
-        label = 'PowerShell',
-        args = {'pwsh.exe', '-NoLogo'}
-    })
-    table.insert(launch_menu, {
-        label = 'CMD',
-        args = {'cmd.exe'}
-    })
-    default_prog = {'pwsh.exe', '-NoLogo'}
-elseif wezterm.target_triple == 'x86_64-apple-darwin' then
-    table.insert(launch_menu, {
-        label = 'zsh',
-        args = {'/bin/zsh', '-l'}
-    })
-    default_prog = {'/bin/zsh', '-l'}
-elseif wezterm.target_triple == 'aarch64-apple-darwin' then
-    table.insert(launch_menu, {
-        label = 'zsh',
-        args = {'/opt/homebrew/bin/zsh', '-l'}
-    })
-    default_prog = {'/opt/homebrew/bin/zsh', '-l'}
-end
-
 local function basename(s)
     return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
-
+ 
 -- Title
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
     local pane = tab.active_pane
@@ -82,9 +55,9 @@ return {
   -- Font
   font = wezterm.font_with_fallback {
     -- 'Fira Code',
-    'Hack Nerd Font Mono'
+    -- 'Hack Nerd Font Mono'
   },
-  font_size = 16,
+  font_size = 14,
   use_ime = true,
 
 -- Tab bar appearance
@@ -209,8 +182,7 @@ return {
         --     }}
         -- },
     },
-    -- set_environment_variables = {},
-    default_prog = default_prog,
+    set_environment_variables = {},
     set_environment_variables = set_environment_variables,
-    -- launch_menu = launch_menu
+    launch_menu = launch_menu
 }
