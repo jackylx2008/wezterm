@@ -126,9 +126,9 @@ return {
         { key = "v",   mods="SHIFT|CTRL",     action="Paste"},
         { key = "c",   mods="SHIFT|CTRL",     action="Copy"},
         -- Navigate the tab
-        { key = "i",   mods="CTRL",     action = wezterm.action {ActivateTabRelative = 1}},
-        { key = "o",   mods="CTRL",     action = wezterm.action {ActivateTabRelative = -1}},
-        { key = "n",   mods="CTRL",     action = 'ShowTabNavigator'},
+        { key = "i",   mods="LEADER",     action = wezterm.action {ActivateTabRelative = 1}},
+        { key = "o",   mods="LEADER",     action = wezterm.action {ActivateTabRelative = -1}},
+        { key = "n",   mods="LEADER",     action = 'ShowTabNavigator'},
         -- Multiple panes
         -- {
         --     key = '[',
