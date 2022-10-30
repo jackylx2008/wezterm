@@ -1,10 +1,10 @@
 local wezterm = require 'wezterm'
-local act = wezterm.action
-local launch_menu = {}
-local set_environment_variables = {}
+-- local act = wezterm.action
+-- local launch_menu = {}
+-- local set_environment_variables = {}
 
 -- Show which key table is active in the status area
-wezterm.on('update-right-status', function(window, pane)
+wezterm.on('update-right-status', function(window)
   local name = window:active_key_table()
   if name then
     name = 'TABLE: ' .. name
@@ -15,9 +15,10 @@ end)
 local function basename(s)
     return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
- 
+
 -- Title
-wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+-- wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+wezterm.on('format-tab-title', function(tab)
     local pane = tab.active_pane
     local title = basename(pane.foreground_process_name)
 
@@ -28,7 +29,8 @@ end)
 
 -- Initial startup
 wezterm.on('gui-startup', function(cmd)
-    local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
+    -- local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
+    local _, _ , window = wezterm.mux.spawn_window(cmd or {})
     window:gui_window():maximize()  --Max window
 end)
 
@@ -36,7 +38,7 @@ return {
     -- Window
     native_macos_fullscreen_mode = true,
     adjust_window_size_when_changing_font_size = true,
-    window_close_confirmation = 'NeverPrompt',
+    window_close_confirmatio = 'NeverPrompt',
     -- window_decorations = 'RESIZE',
     window_decorations = 'TITLE|RESIZE',
     window_background_opacity = 0.85,
@@ -54,8 +56,11 @@ return {
 
   -- Font
   font = wezterm.font_with_fallback {
-    -- 'Fira Code',
+    -- 'FiraCode Nerd Font',
     -- 'Hack Nerd Font Mono'
+    -- 'Source Code Pro'
+    -- 'FiraMono Nerd Font'
+    'JetBrainsMonoNL Nerd Font Mono'
   },
   font_size = 14,
   use_ime = true,
@@ -107,10 +112,10 @@ return {
         -- Toggle zoom current pane
         { key = "z", mods = "LEADER",       action="TogglePaneZoomState" },
         -- Choose tab by leader num
-        { key = "1", mods = "LEADER",       action=wezterm.action{ActivateTab=0}},
-        { key = "2", mods = "LEADER",       action=wezterm.action{ActivateTab=1}},
-        { key = "3", mods = "LEADER",       action=wezterm.action{ActivateTab=2}},
-        { key = "4", mods = "LEADER",       action=wezterm.action{ActivateTab=3}},
+        { key = "h", mods = "LEADER",       action=wezterm.action{ActivateTab=0}},
+        { key = "j", mods = "LEADER",       action=wezterm.action{ActivateTab=1}},
+        { key = "k", mods = "LEADER",       action=wezterm.action{ActivateTab=2}},
+        { key = "l", mods = "LEADER",       action=wezterm.action{ActivateTab=3}},
         { key = "5", mods = "LEADER",       action=wezterm.action{ActivateTab=4}},
         { key = "6", mods = "LEADER",       action=wezterm.action{ActivateTab=5}},
         { key = "7", mods = "LEADER",       action=wezterm.action{ActivateTab=6}},
@@ -183,6 +188,6 @@ return {
         -- },
     },
     set_environment_variables = {},
-    set_environment_variables = set_environment_variables,
-    launch_menu = launch_menu
+    -- set_environment_variables = set_environment_variables,
+    -- launch_menu = launch_menu
 }
