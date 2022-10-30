@@ -112,10 +112,10 @@ return {
         -- Toggle zoom current pane
         { key = "z", mods = "LEADER",       action="TogglePaneZoomState" },
         -- Choose tab by leader num
-        { key = "h", mods = "LEADER",       action=wezterm.action{ActivateTab=0}},
-        { key = "j", mods = "LEADER",       action=wezterm.action{ActivateTab=1}},
-        { key = "k", mods = "LEADER",       action=wezterm.action{ActivateTab=2}},
-        { key = "l", mods = "LEADER",       action=wezterm.action{ActivateTab=3}},
+        { key = "a", mods = "LEADER",       action=wezterm.action{ActivateTab=0}},
+        { key = "s", mods = "LEADER",       action=wezterm.action{ActivateTab=1}},
+        { key = "d", mods = "LEADER",       action=wezterm.action{ActivateTab=2}},
+        { key = "f", mods = "LEADER",       action=wezterm.action{ActivateTab=3}},
         { key = "5", mods = "LEADER",       action=wezterm.action{ActivateTab=4}},
         { key = "6", mods = "LEADER",       action=wezterm.action{ActivateTab=5}},
         { key = "7", mods = "LEADER",       action=wezterm.action{ActivateTab=6}},
