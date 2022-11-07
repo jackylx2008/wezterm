@@ -18,7 +18,6 @@ export BAT_THEME="TwoDark"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="powerlevel10k"
 # ZSH_THEME="ys"
 # ZSH_THEME="agnoster"
 
@@ -121,9 +120,26 @@ INSERT_MODE_INDICATOR="%F{yellow}+%f"
 bindkey -M viins 'jj' vi-cmd-mode
 # Finish the suggestion
 bindkey ',' autosuggest-accept
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # To Powerlevel10k warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+# 
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
