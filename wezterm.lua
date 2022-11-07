@@ -38,7 +38,7 @@ return {
     -- Window
     native_macos_fullscreen_mode = true,
     adjust_window_size_when_changing_font_size = true,
-    window_close_confirmation = 'NeverPrompt',
+    window_close_confirmatio = 'NeverPrompt',
     -- window_decorations = 'RESIZE',
     window_decorations = 'TITLE|RESIZE',
     window_background_opacity = 0.85,
@@ -57,10 +57,10 @@ return {
   -- Font
   font = wezterm.font_with_fallback {
     -- 'FiraCode Nerd Font',
-    -- 'Hack Nerd Font Mono'
-    -- 'Source Code Pro'
-    -- 'FiraMono Nerd Font'
-    'JetBrainsMonoNL Nerd Font Mono'
+    -- 'Hack Nerd Font Mono',
+    -- 'Source Code Pro',
+    -- 'FiraMono Nerd Font',
+    'JetBrainsMonoNL Nerd Font Mono',
   },
   font_size = 14,
   use_ime = true,
