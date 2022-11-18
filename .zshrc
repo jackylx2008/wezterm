@@ -126,7 +126,8 @@ bindkey ',' autosuggest-accept
 # To Powerlevel10k warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # 
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

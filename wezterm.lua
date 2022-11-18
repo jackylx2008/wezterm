@@ -1,8 +1,14 @@
 local wezterm = require("wezterm")
 -- local act = wezterm.action
+local default_prog
+local font_size = 14
 -- local launch_menu = {}
 -- local set_environment_variables = {}
 
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
+	font_size = 12
+end
 -- Show which key table is active in the status area
 wezterm.on("update-right-status", function(window)
 	local name = window:active_key_table()
@@ -57,12 +63,12 @@ return {
 	-- Font
 	font = wezterm.font_with_fallback({
 		-- 'FiraCode Nerd Font',
-		-- "Hack Nerd Font Mono",
-		-- -- 'Source Code Pro',
-		-- "FiraMono Nerd Font",
+		-- 'Hack Nerd Font Mono',
+		-- 'Source Code Pro',
+		-- 'FiraMono Nerd Font',
 		"JetBrainsMonoNL Nerd Font Mono",
 	}),
-	font_size = 14,
+	font_size = font_size,
 	use_ime = true,
 
 	-- Tab bar appearance
@@ -189,5 +195,5 @@ return {
 	},
 	set_environment_variables = {},
 	-- set_environment_variables = set_environment_variables,
-	-- launch_menu = launch_menu
+	default_prog = default_prog,
 }
