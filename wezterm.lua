@@ -1,15 +1,13 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+local mux = wezterm.mux
 local font_size = 14
 local launch_menu = {}
 local config = {}
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	font_size = 12
-	table.insert(launch_menu, {
-		label = "PowerShell",
-		args = { "powershell.exe", "-NoLogo" },
-	})
+	font_size = 11
+	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
 
 	-- Find installed visual studio version(s) and add their compilation
 	-- environment command prompts to the menu
@@ -24,6 +22,10 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 			},
 		})
 	end
+	wezterm.on("gui-startup", function(cmd)
+		local tab, pane, window = mux.spawn_window({})
+		window:gui_window():maximize()
+	end)
 end
 
 -- In newer versions of wezterm, use the config_builder which will
@@ -39,7 +41,10 @@ local font = "JetBrainsMonoNL Nerd Font Mono"
 -- "JetBrainsMonoNL Nerd Font Mono",
 
 -- For example, changing the color scheme:
-config.color_scheme = "Gruvbox Dark"
+config.default_prog = default_prog
+config.native_macos_fullscreen_mode = true
+config.window_background_opacity = 0.65
+config.color_scheme = "Gruvboxdark, hard (base16)"
 config.font = wezterm.font(font)
 config.font_size = font_size
 config.native_macos_fullscreen_mode = true
