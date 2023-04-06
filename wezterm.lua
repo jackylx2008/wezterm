@@ -5,6 +5,11 @@ local font_size = 14
 local launch_menu = {}
 local config = {}
 
+wezterm.on("gui-startup", function(cmd)
+	local tab, pane, window = mux.spawn_window({})
+	window:gui_window():maximize()
+end)
+
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	font_size = 11
 	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
@@ -22,11 +27,26 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 			},
 		})
 	end
-	wezterm.on("gui-startup", function(cmd)
-		local tab, pane, window = mux.spawn_window({})
-		window:gui_window():maximize()
-	end)
 end
+
+-- The set of schemes that we like and want to put in our rotation
+-- local schemes = {}
+-- for name, scheme in pairs(wezterm.get_builtin_color_schemes()) do
+-- 	table.insert(schemes, name)
+-- end
+--
+-- wezterm.on("window-config-reloaded", function(window, pane)
+-- 	-- If there are no overrides, this is our first time seeing
+-- 	-- this window, so we can pick a random scheme.
+-- 	if not window:get_config_overrides() then
+-- 		-- Pick a random scheme name
+-- 		local scheme = schemes[math.random(#schemes)]
+-- 		window:set_config_overrides({
+-- 			color_scheme = scheme,
+-- 		})
+-- 		print(scheme)
+-- 	end
+-- end)
 
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
@@ -36,16 +56,16 @@ end
 
 -- This is where you actually apply your config choices
 local font = "JetBrainsMonoNL Nerd Font Mono"
--- 'Hack Nerd Font Mono',
--- 'FiraMono Nerd Font',
--- "JetBrainsMonoNL Nerd Font Mono",
+-- local font = "Hack Nerd Font Mono"
+-- local font = "FiraMono Nerd Font Mono"
 
 -- For example, changing the color scheme:
 config.default_prog = default_prog
 config.native_macos_fullscreen_mode = true
-config.window_background_opacity = 0.65
-config.color_scheme = "Gruvboxdark, hard (base16)"
-config.font = wezterm.font(font)
+config.window_background_opacity = 0.80
+config.font = wezterm.font(font, { weight = "Bold", italic = false })
+-- config.color_scheme = "Google Dark (Gogh)"
+config.color_scheme = "Google Dark (base16)"
 config.font_size = font_size
 config.native_macos_fullscreen_mode = true
 config.window_padding = {
