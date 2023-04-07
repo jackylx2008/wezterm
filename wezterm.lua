@@ -4,6 +4,7 @@ local mux = wezterm.mux
 local font_size = 14
 local launch_menu = {}
 local config = {}
+local home_dir = os.getenv("HOMEDRIVE") .. os.getenv("HOMEPATH") .. "\\.config\\wezterm\\pic\\"
 
 wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = mux.spawn_window({})
@@ -54,6 +55,15 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+-- Random pic
+local file = io.open(home_dir .. "pic_list.txt", "r")
+local pic_list = {}
+for line in file:lines() do
+	table.insert(pic_list, line)
+end
+file:close()
+local pic = home_dir .. pic_list[math.random(#pic_list)]
+
 -- This is where you actually apply your config choices
 local font = "JetBrainsMonoNL Nerd Font Mono"
 -- local font = "Hack Nerd Font Mono"
@@ -62,12 +72,24 @@ local font = "JetBrainsMonoNL Nerd Font Mono"
 -- For example, changing the color scheme:
 config.default_prog = default_prog
 config.native_macos_fullscreen_mode = true
-config.window_background_opacity = 0.80
+-- config.window_background_opacity = 0.80
 config.font = wezterm.font(font, { weight = "Bold", italic = false })
 -- config.color_scheme = "Google Dark (Gogh)"
 config.color_scheme = "Google Dark (base16)"
 config.font_size = font_size
 config.native_macos_fullscreen_mode = true
+config.window_background_image = pic
+config.window_background_image_hsb = {
+	-- Darken the background image by reducing it to 1/3rd
+	brightness = 0.1,
+
+	-- You can adjust the hue by scaling its value.
+	-- a multiplier of 1.0 leaves the value unchanged.
+	hue = 1.0,
+
+	-- You can adjust the saturation also.
+	saturation = 1.0,
+}
 config.window_padding = {
 	left = 5,
 	right = 5,
@@ -83,7 +105,6 @@ config.inactive_pane_hsb = {
 	saturation = 1.0,
 	brightness = 1.0,
 }
-
 config.initial_cols = 90
 config.initial_rows = 40
 config.warn_about_missing_glyphs = false
@@ -97,7 +118,7 @@ config.keys = {
 	-- Close current pane
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 	-- Close current tab
-	{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+	{ key = "x", mods = "SHIFT|CTRL", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 
 	-- Navigate cursor between panes
 	{ key = "h", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
@@ -106,8 +127,8 @@ config.keys = {
 	{ key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 	-- AdjustPaneSize
 	{ key = "H", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Left", 6 } }) },
-	{ key = "J", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
-	{ key = "K", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
+	{ key = "J", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Down", 3 } }) },
+	{ key = "K", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Up", 3 } }) },
 	{ key = "L", mods = "LEADER", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 
 	-- Toggle zoom current pane
@@ -115,12 +136,12 @@ config.keys = {
 	-- Choose tab by leader num
 	{ key = "a", mods = "LEADER", action = wezterm.action({ ActivateTab = 0 }) },
 	{ key = "s", mods = "LEADER", action = wezterm.action({ ActivateTab = 1 }) },
-	{ key = "d", mods = "LEADER", action = wezterm.action({ ActivateTab = 2 }) },
-	{ key = "f", mods = "LEADER", action = wezterm.action({ ActivateTab = 3 }) },
+	-- { key = "d", mods = "LEADER", action = wezterm.action({ ActivateTab = 1 }) },
+	-- { key = "f", mods = "LEADER", action = wezterm.action({ ActivateTab = 2 }) },
 
 	-- Split the pane
-	{ key = "-", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
-	{ key = "|", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+	{ key = "d", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
+	{ key = "f", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
 	-- Toggle full screen
 	{ key = "n", mods = "SHIFT|CTRL", action = "ToggleFullScreen" },
 	-- Copy and paste to the clipboard
