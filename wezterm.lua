@@ -4,7 +4,7 @@ local mux = wezterm.mux
 local font_size = 14
 local launch_menu = {}
 local config = {}
-local home_dir = os.getenv("HOMEDRIVE") .. os.getenv("HOMEPATH") .. "\\.config\\wezterm\\pic\\"
+local home_dir = "~/.config/wezterm/pic/"
 
 wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = mux.spawn_window({})
@@ -12,6 +12,7 @@ wezterm.on("gui-startup", function(cmd)
 end)
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	local home_dir = os.getenv("HOMEDRIVE") .. os.getenv("HOMEPATH") .. "\\.config\\wezterm\\pic\\"
 	font_size = 11
 	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
 
@@ -28,6 +29,26 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 			},
 		})
 	end
+	-- Random pic
+	local file = io.open(home_dir .. "pic_list.txt", "r")
+	local pic_list = {}
+	for line in file:lines() do
+		table.insert(pic_list, line)
+	end
+	file:close()
+	local pic = home_dir .. pic_list[math.random(#pic_list)]
+	config.window_background_image = pic
+	config.window_background_image_hsb = {
+		-- Darken the background image by reducing it to 1/3rd
+		brightness = 0.1,
+
+		-- You can adjust the hue by scaling its value.
+		-- a multiplier of 1.0 leaves the value unchanged.
+		hue = 1.0,
+
+		-- You can adjust the saturation also.
+		saturation = 1.0,
+	}
 end
 
 -- The set of schemes that we like and want to put in our rotation
@@ -55,15 +76,6 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- Random pic
-local file = io.open(home_dir .. "pic_list.txt", "r")
-local pic_list = {}
-for line in file:lines() do
-	table.insert(pic_list, line)
-end
-file:close()
-local pic = home_dir .. pic_list[math.random(#pic_list)]
-
 -- This is where you actually apply your config choices
 local font = "JetBrainsMonoNL Nerd Font Mono"
 -- local font = "Hack Nerd Font Mono"
@@ -78,18 +90,6 @@ config.font = wezterm.font(font, { weight = "Bold", italic = false })
 config.color_scheme = "Google Dark (base16)"
 config.font_size = font_size
 config.native_macos_fullscreen_mode = true
-config.window_background_image = pic
-config.window_background_image_hsb = {
-	-- Darken the background image by reducing it to 1/3rd
-	brightness = 0.1,
-
-	-- You can adjust the hue by scaling its value.
-	-- a multiplier of 1.0 leaves the value unchanged.
-	hue = 1.0,
-
-	-- You can adjust the saturation also.
-	saturation = 1.0,
-}
 config.window_padding = {
 	left = 5,
 	right = 5,
