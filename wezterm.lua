@@ -6,7 +6,7 @@ local launch_menu = {}
 local config = {}
 local home_dir = ""
 
-wezterm.on("gui-startup", function(cmd)
+wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
 	window:gui_window():maximize()
 end)
@@ -71,11 +71,11 @@ local pic = home_dir .. pic_list[math.random(#pic_list)]
 config.window_background_image = pic
 config.window_background_image_hsb = {
 	-- Darken the background image by reducing it to 1/3rd
-	brightness = 0.5,
+	brightness = 1.0,
 
 	-- You can adjust the hue by scaling its value.
 	-- a multiplier of 1.0 leaves the value unchanged.
-	hue = 0.5,
+	-- hue = 0.5,
 
 	-- You can adjust the saturation also.
 	saturation = 1.0,
