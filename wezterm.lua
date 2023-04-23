@@ -71,7 +71,7 @@ local pic = home_dir .. pic_list[math.random(#pic_list)]
 config.window_background_image = pic
 config.window_background_image_hsb = {
 	-- Darken the background image by reducing it to 1/3rd
-	brightness = 1.0,
+	brightness = 0.6,
 
 	-- You can adjust the hue by scaling its value.
 	-- a multiplier of 1.0 leaves the value unchanged.
