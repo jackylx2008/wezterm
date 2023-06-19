@@ -13,7 +13,7 @@ end)
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	home_dir = os.getenv("HOMEDRIVE") .. os.getenv("HOMEPATH") .. "\\.config\\wezterm\\pic\\"
-	font_size = 9
+	font_size = 10
 	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
 
 	-- Find installed visual studio version(s) and add their compilation
