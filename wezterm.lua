@@ -5,9 +5,10 @@ local font_size = 12
 local launch_menu = {}
 local config = {}
 local home_dir = ""
+local default_prog = {}
 
 wezterm.on("gui-startup", function()
-	local tab, pane, window = mux.spawn_window({})
+	local _, _, window = mux.spawn_window({})
 	window:gui_window():maximize()
 end)
 
