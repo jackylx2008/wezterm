@@ -1,7 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 local mux = wezterm.mux
-local font_size = 16
+local font_size = 12
 local launch_menu = {}
 local config = {}
 local home_dir = ""
@@ -13,7 +13,7 @@ end)
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	home_dir = os.getenv("HOMEDRIVE") .. os.getenv("HOMEPATH") .. "\\.config\\wezterm\\pic\\"
-	font_size = 11
+	font_size = 9
 	default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe" }
 
 	-- Find installed visual studio version(s) and add their compilation
