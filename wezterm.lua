@@ -1,7 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 local mux = wezterm.mux
-local font_size = 12
+local font_size = 13
 local launch_menu = {}
 local config = {}
 local home_dir = ""
