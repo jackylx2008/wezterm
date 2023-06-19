@@ -5,7 +5,6 @@ local font_size = 13
 local launch_menu = {}
 local config = {}
 local home_dir = ""
-local default_prog = {}
 
 wezterm.on("gui-startup", function()
 	local _, _, window = mux.spawn_window({})
