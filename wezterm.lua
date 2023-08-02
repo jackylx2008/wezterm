@@ -5,6 +5,7 @@ local font_size = 13
 local launch_menu = {}
 local config = {}
 local home_dir = ""
+local default_prog = {}
 
 wezterm.on("gui-startup", function()
 	local _, _, window = mux.spawn_window({})
@@ -63,11 +64,14 @@ end
 -- Random pic
 local file = io.open(home_dir .. "pic_list.txt", "r")
 local pic_list = {}
-for line in file:lines() do
-	table.insert(pic_list, line)
+if file ~= nil then
+	for line in file:lines() do
+		table.insert(pic_list, line)
+	end
+	file:close()
 end
-file:close()
 local pic = home_dir .. pic_list[math.random(#pic_list)]
+
 config.window_background_image = pic
 config.window_background_image_hsb = {
 	-- Darken the background image by reducing it to 1/3rd
@@ -82,13 +86,18 @@ config.window_background_image_hsb = {
 }
 -- This is where you actually apply your config choices
 local font = "JetBrainsMonoNL Nerd Font Mono"
+-- local font = "FiraCode Nerd Font Mono"
 -- local font = "Hack Nerd Font Mono"
 -- local font = "FiraMono Nerd Font Mono"
 
-config.default_prog = default_prog
 config.native_macos_fullscreen_mode = true
 -- config.window_background_opacity = 0.80
-config.font = wezterm.font(font, { weight = "Bold", italic = false })
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.font = wezterm.font(font, { weight = "Bold", italic = false })
+	config.default_prog = default_prog
+else
+	config.font = wezterm.font(font, { weight = "Regular", italic = false })
+end
 config.color_scheme = "Google Dark (base16)"
 config.font_size = font_size
 config.native_macos_fullscreen_mode = true
