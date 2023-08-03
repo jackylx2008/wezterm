@@ -1,7 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 local mux = wezterm.mux
-local font_size = 13
+local font_size = 16
 local launch_menu = {}
 local config = {}
 local home_dir = ""
@@ -95,8 +95,9 @@ config.native_macos_fullscreen_mode = true
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.font = wezterm.font(font, { weight = "Bold", italic = false })
 	config.default_prog = default_prog
-else
-	config.font = wezterm.font(font, { weight = "Regular", italic = false })
+end
+if wezterm.target_triple == "x86_64-apple-darwin" then
+	config.font = wezterm.font(font, { weight = "Bold", italic = false })
 end
 config.color_scheme = "Google Dark (base16)"
 config.font_size = font_size
